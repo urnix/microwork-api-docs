@@ -8,8 +8,6 @@ language_tabs:
 toc_footers:
   - <a href='http://microwork.io'>Documentation for Microwork API</a>
 
-includes:
-
 search: true
 ---
 
@@ -35,125 +33,165 @@ We plan to have Curl and Javascript interfaces! You can view code examples in th
     
 Here will be information about authentication
 
-# Kittens
+# BrandImages
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Tag image
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl -X POST "https://api.microwork.io/brandimages/tag"
+     -H "Authorization: Bearer <your_token>"
+     -d '{"url": "pngimg.com/uploads/pepsi/pepsi_PNG8.png"}'
+
 ```
 
 ```javascript
-const kittn = require('kittn');
+const microwork = require('microwork');
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+let api = kittn.authorize('your_token');
+let taggingInfo = api.brandimages.tag('http://pngimg.com/uploads/pepsi/pepsi_PNG8.png');
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+{ 
+    "_id" : "223HkAndczrjvBXx9", 
+    "brandsTagging" : [
+        { 
+            "_id" : "tB2h6mHKPAqKxMaQ9", 
+            "rectangle" : {
+                "left" : 1051, 
+                "top" : 660, 
+                "width" : 353, 
+                "height" : 126, 
+                "angle" : 0, 
+                "brandLogoId" : "iaEvAzztinCD7wdjk" 
+            }, 
+            "brandName" : "Ford Snapchat", 
+        },
+        { 
+            "_id" : "YKzuC8Sm8EjA2sNpw", 
+            "rectangle" : {
+                "left" : 1135, 
+                "top" : 1128, 
+                "width" : 163, 
+                "height" : 59, 
+                "angle" : 0, 
+                "brandLogoId" : "ZAxYa9RPcuLXhZyqT"
+            }
+        },
+        { 
+            "_id" : "RXxnxHb2HC7X3A8QX", 
+            "rectangle" : {
+                "left" : 2437, 
+                "top" : 447, 
+                "width" : 251, 
+                "height" : 80, 
+                "angle" : 0, 
+                "brandLogoId" : null
+            }
+        },
+        { 
+            "_id" : "zjyhHzNcpuQj6XT5L", 
+            "rectangle" : {
+                "left" : 2162, 
+                "top" : 502, 
+                "width" : 66, 
+                "height" : 184, 
+                "angle" : 0, 
+                "brandLogoId" : null
+            }
+        }
+    ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint takes image for tagging.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="warning">The tagging might take some time</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`POST https://api.microwork.io/brandimages/tag`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+url | The url of image to process
+
+
+## Annotate image
+
+```shell
+curl -X POST "https://api.microwork.io/brandimages/annotate"
+     -H "Authorization: Bearer <your_token>"
+     -d '{"url": "pngimg.com/uploads/pepsi/pepsi_PNG8.png"}'
+
+```
+
+```javascript
+const microwork = require('microwork');
+
+let api = kittn.authorize('your_token');
+let annotationInfo = api.brandimages.annotate('http://pngimg.com/uploads/pepsi/pepsi_PNG8.png');
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{ 
+    "_id" : "223HkAndczrjvBXx9", 
+    "brandsTagging" : [
+        { 
+            "_id" : "tB2h6mHKPAqKxMaQ9", 
+            "rectangle" : {
+            "isGoodQuality" : false, 
+            "isSubject" : true,
+            "rectangle" : {
+//                ... 
+            }, 
+            "brandName" : "Ford Snapchat",
+        }
+        { 
+            "_id" : "YKzuC8Sm8EjA2sNpw", 
+            "isGoodQuality" : false, 
+            "isSubject" : false,
+            "rectangle" : {
+//                ... 
+            }
+        }
+        { 
+            "_id" : "RXxnxHb2HC7X3A8QX", 
+            "isGoodQuality" : false, 
+            "isSubject" : false,
+            "rectangle" : {
+//                ... 
+            }
+        }
+        { 
+            "_id" : "zjyhHzNcpuQj6XT5L", 
+            "isGoodQuality" : false, 
+            "isSubject" : false,
+            "rectangle" : {
+//                ... 
+            }
+        }
+    ]
+}
+```
+
+This endpoint takes image for annotating.
+
+<aside class="warning">The annotating might take some time</aside>
+
+### HTTP Request
+
+`POST https://api.microwork.io/brandimages/tag`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+url | The url of image to process
 
