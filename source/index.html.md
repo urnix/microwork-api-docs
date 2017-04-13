@@ -1,18 +1,14 @@
 ---
-title: API Reference
+title: Microwork API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
+  - curl
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='http://microwork.io'>Documentation for Microwork API</a>
 
 includes:
-  - errors
 
 search: true
 ---
