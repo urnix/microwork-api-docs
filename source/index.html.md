@@ -2,8 +2,8 @@
 title: Microwork API Reference
 
 language_tabs:
-  - curl
-  - javascript
+  - shell: cURL
+  - javascript: JavaScript
 
 toc_footers:
   - <a href='http://microwork.io'>Documentation for Microwork API</a>
@@ -17,49 +17,23 @@ search: true
 
 Welcome to the Microwork API! You will be able to use our API to access Microwork API endpoints, for recognize logos and other objects on the images.
 
-At the moment, our API is at the prototype stage.
+**At the moment, our API is at the prototype stage.**
 
 We plan to have Curl and Javascript interfaces! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+> Here will be example of authentication
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+# ...
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+//...
 ```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+    
+Here will be information about authentication
 
 # Kittens
 
