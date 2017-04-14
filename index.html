@@ -200,7 +200,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -213,7 +213,6 @@
       </a>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
-              <a href="#" data-language-name="javascript">JavaScript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -234,166 +233,420 @@
 
 <p><strong>At the moment, our API is at the prototype stage.</strong></p>
 
-<p>We plan to have Curl and Javascript interfaces! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>You can view code examples in the dark area to the right.</p>
 
 <h1 id="authentication">Authentication</h1>
 
 <blockquote>
-<p>Here will be example of authentication</p>
+<p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code><span class="c"># ...</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">//...</span>
+<pre class="highlight shell tab-shell"><code><span class="c"># With curl, you can just pass the correct header with each request</span>
+curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
+  -u <span class="s2">"MICROWORK_API_KEY:"</span>
 </code></pre>
-<p>Here will be information about authentication</p>
+<blockquote>
+<p>You must replace MICROWORK_API_KEY with your personal API key.</p>
+</blockquote>
 
-<h1 id="brandimages">BrandImages</h1>
+<p>Microwork uses API keys to allow access to the API</p>
 
-<h2 id="tag-image">Tag image</h2>
-<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.microwork.io/brandimages/tag"</span>
-     -H <span class="s2">"Authorization: Bearer &lt;your_token&gt;"</span>
-     -d <span class="s1">'{"url": "pngimg.com/uploads/pepsi/pepsi_PNG8.png"}'</span>
+<p>Microwork expects for the API key to be included in all API requests to the server via <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth</a>. Provide your API key as the basic auth username value. You do not need to provide a password. You can do this using the -u flag:</p>
 
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">microwork</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'microwork'</span><span class="p">);</span>
+<p><code class="prettyprint">-u &quot;MICROWORK_API_KEY:&quot;</code></p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'your_token'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">taggingInfo</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">brandimages</span><span class="p">.</span><span class="nx">tag</span><span class="p">(</span><span class="s1">'http://pngimg.com/uploads/pepsi/pepsi_PNG8.png'</span><span class="p">);</span>
+<aside class="notice">
+You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
+</aside>
+
+<h1 id="tag-image">Tag image</h1>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.microwork.io/v1/task/images/tagging"</span> <span class="se">\</span>
+     -u <span class="s2">"MICROWORK_API_KEY:"</span> <span class="se">\</span>
+     -d <span class="nv">callback_url</span><span class="o">=</span><span class="s2">"http://www.example.com/callback"</span> <span class="se">\</span>
+     -d <span class="nv">objects_to_tag</span><span class="o">=</span><span class="s2">"brands"</span> <span class="c"># Describes what should be tagged. We currently only support brands for the tagging endpoint.</span>
+     -d <span class="nv">image_url</span><span class="o">=</span><span class="s2">"https://ibb.co/fmMFRQ"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
-    </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"223HkAndczrjvBXx9"</span><span class="p">,</span><span class="w"> 
-    </span><span class="s2">"brandsTagging"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"tB2h6mHKPAqKxMaQ9"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1051</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">660</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">353</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">126</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"angle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"brandLogoId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"iaEvAzztinCD7wdjk"</span><span class="w"> 
-            </span><span class="p">},</span><span class="w"> 
-            </span><span class="s2">"brandName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ford Snapchat"</span><span class="p">,</span><span class="w"> 
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"YKzuC8Sm8EjA2sNpw"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1135</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1128</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">163</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"angle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"brandLogoId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ZAxYa9RPcuLXhZyqT"</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"RXxnxHb2HC7X3A8QX"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2437</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">447</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">251</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"angle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"brandLogoId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"zjyhHzNcpuQj6XT5L"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2162</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">502</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">66</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">184</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"angle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                </span><span class="s2">"brandLogoId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oPkwaTCPLzNd873rx"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-14T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tagging"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"objects_to_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brands"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint takes image for tagging.</p>
+<p>This endpoint creates a tagging task. In this task, one of our workers view the given image and draw bounding boxes around the brand logos, returning the coordinates of these boxes.</p>
+
+<p>The required parameters for this task are <code class="prettyprint">callback_url</code>, <code class="prettyprint">image_url</code>, and <code class="prettyprint">objects_to_tag</code>. The <code class="prettyprint">callback_url</code> is the URL which will be POSTed on task completion, and is described in more detail in the Callbacks section. The <code class="prettyprint">image_url</code> is a URL to an image you’d like to be tagged.</p>
+
+<p><code class="prettyprint">objects_to_tag</code> is an string describing the different types of objects you’d like tagged (We currently only support <code class="prettyprint">brands</code> value).</p>
+
+<p>If successful, Microwork will immediately return the generated task object, of which you should at least store the <code class="prettyprint">task_id</code>.</p>
 
 <aside class="warning">The tagging might take some time</aside>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.microwork.io/brandimages/tag</code></p>
+<p><code class="prettyprint">POST https://api.microwork.io/v1/task/images/tagging</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>url</td>
-<td>The url of image to process</td>
+<td><code class="prettyprint">callback_url</code></td>
+<td>string</td>
+<td>The full url (including the scheme <code class="prettyprint">http://</code> or <code class="prettyprint">https://</code>) of the callback when the task is completed. See the Callback section for more details about callbacks.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">objects_to_tag</code> (default <code class="prettyprint">brands</code>)</td>
+<td>string</td>
+<td>An string describing which objects you’d like bounding boxes to be drawn around.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">image_url</code></td>
+<td>string</td>
+<td>A URL to the image you’d like to be tagged with bounding boxes.</td>
 </tr>
 </tbody></table>
 
-<h2 id="annotate-image">Annotate image</h2>
-<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.microwork.io/brandimages/annotate"</span>
-     -H <span class="s2">"Authorization: Bearer &lt;your_token&gt;"</span>
-     -d <span class="s1">'{"url": "pngimg.com/uploads/pepsi/pepsi_PNG8.png"}'</span>
+<h2 id="callback-format">Callback Format</h2>
 
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">microwork</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'microwork'</span><span class="p">);</span>
+<blockquote>
+<p>Example callback body sent on completion</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nk5DHouybZD2MvGqX"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1408</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">601</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">121</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pepsi"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ATXsnhDdq5NyQw4qQ"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://images.data.microwork.io/templates/384551c8730bdea36aa971c1eb816898d10c03a2.png"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TeSRfZBYCdWQbQwvH"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JwfffWsnqX6KBFqom"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">975</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1396</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1262</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1465</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pepsi"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ATXsnhDdq5NyQw4qQ"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oPkwaTCPLzNd873rx"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"task"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The response field, which is part of the callback POST request and permanently stored as part of the task object, will contain only an <code class="prettyprint">tags</code> field.</p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'your_token'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">annotationInfo</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">brandimages</span><span class="p">.</span><span class="nx">annotate</span><span class="p">(</span><span class="s1">'http://pngimg.com/uploads/pepsi/pepsi_PNG8.png'</span><span class="p">);</span>
+<p>The <code class="prettyprint">tags</code> field will contain an array of tags. Each <code class="prettyprint">tag</code> will have the following values:</p>
+
+<ul>
+<li><code class="prettyprint">id</code>: Id of tag</li>
+<li><code class="prettyprint">left</code>: The distance, in pixels, between the left border of the bounding box and the left border of the image.</li>
+<li><code class="prettyprint">top</code>: The distance, in pixels, between the top border of the bounding box and the top border of the image.</li>
+<li><code class="prettyprint">width</code>: The width, in pixels, of the bounding box.</li>
+<li><code class="prettyprint">height</code>: The height, in pixels, of the bounding box.</li>
+<li><code class="prettyprint">brand</code> (if detected): Name of detected brand.</li>
+<li><code class="prettyprint">brand_id</code> (if detected): Id of detected brand.</li>
+<li><code class="prettyprint">template_url</code> (if detected): Url for brand logo image.</li>
+<li><code class="prettyprint">template_id</code> (if detected): Id of brand logo.</li>
+</ul>
+
+<aside class="notice">See the <a href="#callbacks">Callback section</a> for more details about callbacks.</aside>
+
+<h1 id="annotate-tags-on-image">Annotate tags on image</h1>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.microwork.io/v1/task/images/tags/annotating"</span> <span class="se">\</span>
+     -u <span class="s2">"MICROWORK_API_KEY:"</span> <span class="se">\</span>
+     -d <span class="nv">callback_url</span><span class="o">=</span><span class="s2">"http://www.example.com/callback"</span> <span class="se">\</span>
+     -d <span class="nv">image_url</span><span class="o">=</span><span class="s2">"https://ibb.co/fmMFRQ"</span>
+     -d <span class="nv">instruction</span><span class="o">=</span><span class="s2">"Detect if tag is **good**, **bad**, or **great**."</span> <span class="se">\</span>
+     -d <span class="nv">annotation_option</span><span class="o">=</span><span class="s2">"good"</span> <span class="se">\</span>
+     -d <span class="nv">annotation_option</span><span class="o">=</span><span class="s2">"bad"</span> <span class="se">\</span>
+     -d <span class="nv">annotation_option</span><span class="o">=</span><span class="s2">"great"</span> <span class="se">\</span>
+     -d tags[0][id]<span class="o">=</span><span class="s2">"nk5DHouybZD2MvGqX"</span> <span class="se">\</span>
+     -d tags[0][left]<span class="o">=</span>1408 <span class="se">\</span>
+     -d tags[0][top]<span class="o">=</span>0 <span class="se">\</span>
+     -d tags[0][width]<span class="o">=</span>601 <span class="se">\</span>
+     -d tags[0][height]<span class="o">=</span>121 <span class="se">\</span>
+     -d tags[1][id]<span class="o">=</span><span class="s2">"JwfffWsnqX6KBFqom"</span> <span class="se">\</span>
+     -d tags[1][left]<span class="o">=</span>975 <span class="se">\</span>
+     -d tags[1][top]<span class="o">=</span>1396 <span class="se">\</span>
+     -d tags[1][width]<span class="o">=</span>1262 <span class="se">\</span>
+     -d tags[1][height]<span class="o">=</span>1465
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
-    </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"223HkAndczrjvBXx9"</span><span class="p">,</span><span class="w"> 
-    </span><span class="s2">"brandsTagging"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"tB2h6mHKPAqKxMaQ9"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"isGoodQuality"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isSubject"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="err">//</span><span class="w">                </span><span class="err">...</span><span class="w"> 
-            </span><span class="p">},</span><span class="w"> 
-            </span><span class="s2">"brandName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Ford Snapchat"</span><span class="p">,</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"YKzuC8Sm8EjA2sNpw"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isGoodQuality"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isSubject"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="err">//</span><span class="w">                </span><span class="err">...</span><span class="w"> 
-            </span><span class="p">}</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"RXxnxHb2HC7X3A8QX"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isGoodQuality"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isSubject"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="err">//</span><span class="w">                </span><span class="err">...</span><span class="w"> 
-            </span><span class="p">}</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-        </span><span class="p">{</span><span class="w"> 
-            </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"zjyhHzNcpuQj6XT5L"</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isGoodQuality"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> 
-            </span><span class="s2">"isSubject"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"rectangle"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="err">//</span><span class="w">                </span><span class="err">...</span><span class="w"> 
-            </span><span class="p">}</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+     </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"K63nQmiYa5C57iXm5"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-14T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"annotating"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"instruction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Detect if tag is **good**, **bad**, or **great**."</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"good"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bad"</span><span class="p">,</span><span class="w"> </span><span class="s2">"great"</span><span class="p">],</span><span class="w">
+     </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+           </span><span class="p">{</span><span class="w">
+                 </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nk5DHouybZD2MvGqX"</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1408</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">601</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">121</span><span class="w">
+           </span><span class="p">},</span><span class="w">
+           </span><span class="p">{</span><span class="w">
+                 </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JwfffWsnqX6KBFqom"</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">975</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1396</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1262</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1465</span><span class="w">
+           </span><span class="p">}</span><span class="w">
+     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint takes image for annotating.</p>
+<p>This endpoint creates a annotating task. In this task, one of our workers view the given image and answer to question (given in <code class="prettyprint">instruction</code> parameter) for each given <code class="prettyprint">tags</code> (using one of <code class="prettyprint">annotation_option</code>).</p>
+
+<p>The required parameters for this task are: <code class="prettyprint">callback_url</code>, <code class="prettyprint">image_url</code>, <code class="prettyprint">instruction</code>, <code class="prettyprint">annotation_option</code> and <code class="prettyprint">tags</code>. </p>
+
+<p>The <code class="prettyprint">callback_url</code> is the URL which will be POSTed on task completion, and is described in more detail in the Callbacks section. The <code class="prettyprint">image_url</code> is a URL to an image you’d like to be tagged. </p>
+
+<p><code class="prettyprint">instruction</code> contains question and <code class="prettyprint">annotation_option</code> available variants of answers.</p>
+
+<p><code class="prettyprint">tags</code> is array each element of which describe one rectangle on image.</p>
+
+<p>If successful, Microwork will immediately return the generated task object, of which you should at least store the <code class="prettyprint">task_id</code>.</p>
 
 <aside class="warning">The annotating might take some time</aside>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.microwork.io/brandimages/tag</code></p>
+<p><code class="prettyprint">POST https://api.microwork.io/v1/task/images/tags/annotating</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">callback_url</code></td>
+<td>string</td>
+<td>The full url (including the scheme <code class="prettyprint">http://</code> or <code class="prettyprint">https://</code>) of the callback when the task is completed. See the Callback section for more details about callbacks.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">image_url</code></td>
+<td>string</td>
+<td>A URL to the image you’d like to be tagged with bounding boxes.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">instruction</code></td>
+<td>string</td>
+<td>Question will be applied for each tag</td>
+</tr>
+<tr>
+<td><code class="prettyprint">annotation_option</code></td>
+<td>string</td>
+<td>Variants of answers</td>
+</tr>
+<tr>
+<td><code class="prettyprint">tags</code></td>
+<td>[Object]</td>
+<td>Array of tags</td>
+</tr>
+</tbody></table>
+
+<h2 id="callback-format">Callback Format</h2>
+
+<blockquote>
+<p>Example callback body sent on completion</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+     </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                 </span><span class="p">{</span><span class="w">
+                       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nk5DHouybZD2MvGqX"</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1408</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">601</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">121</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"good"</span><span class="w">
+                 </span><span class="p">},</span><span class="w">
+                 </span><span class="p">{</span><span class="w">
+                       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JwfffWsnqX6KBFqom"</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">975</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1396</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1262</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1465</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad"</span><span class="w">
+                 </span><span class="p">},</span><span class="w">
+                 </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+                 </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+           </span><span class="p">]</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oPkwaTCPLzNd873rx"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"task"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="err">...</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The response field, which is part of the callback POST request and permanently stored as part of the task object, will contain only an <code class="prettyprint">tags</code> field.</p>
+
+<p>The <code class="prettyprint">tags</code> field will contain an array of tags. Each <code class="prettyprint">tag</code> will have the following values:</p>
+
+<ul>
+<li><code class="prettyprint">id</code>: Id of tag</li>
+<li><code class="prettyprint">left</code>: The distance, in pixels, between the left border of the bounding box and the left border of the image.</li>
+<li><code class="prettyprint">top</code>: The distance, in pixels, between the top border of the bounding box and the top border of the image.</li>
+<li><code class="prettyprint">width</code>: The width, in pixels, of the bounding box.</li>
+<li><code class="prettyprint">height</code>: The height, in pixels, of the bounding box.</li>
+<li><code class="prettyprint">label</code>: Result of annotating</li>
+</ul>
+
+<aside class="notice">See the <a href="#callbacks">Callback section</a> for more details about callbacks.</aside>
+
+<h1 id="callbacks">Callbacks</h1>
+
+<blockquote>
+<p>The callback_url will be POSTed with application/json data of the following object form:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"task"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576ba74eec471ff9b01557cc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"completed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T09:10:02.798Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T09:09:34.752Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tagging"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"objects_to_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brands"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nk5DHouybZD2MvGqX"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1408</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">601</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">121</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pepsi"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"brand_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ATXsnhDdq5NyQw4qQ"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"template_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://images.data.microwork.io/templates/384551c8730bdea36aa971c1eb816898d10c03a2.png"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TeSRfZBYCdWQbQwvH"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JwfffWsnqX6KBFqom"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">975</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1396</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1262</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1465</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pepsi"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"brand_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ATXsnhDdq5NyQw4qQ"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"template_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576ba74eec471ff9b01557cc"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>On your tasks, you will be required to supply a <code class="prettyprint">callback_url</code>, a fully qualified URL that we will POST with the results of the task when completed. The data will be served as a JSON body (<code class="prettyprint">application/json</code>).</p>
+
+<p>You should respond to the POST request with a 2xx status code. If we do not receive a 2xx status code, we will continue to retry up to 20 times over the course of the next 24 hours.</p>
+
+<p>If we receive a 2xx status code, the task will be populated with a <code class="prettyprint">true</code> value for the <code class="prettyprint">callback_succeeded</code> parameter. Otherwise, if we do not receive a 2xx status code on any retry, the task will be populated with a <code class="prettyprint">false</code> value for the <code class="prettyprint">callback_succeeded</code> parameter.</p>
+
+<h1 id="task-endpoints">Task Endpoints</h1>
+
+<h2 id="retrieve-a-task">Retrieve a Task</h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.microwork.io/v1/task/{task_id}"</span> <span class="se">\</span>
+  -u <span class="s2">"MICROWORK_API_KEY:"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576ba74eec471ff9b01557cc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"completed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T09:10:02.798Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T09:09:34.752Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tagging"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"objects_to_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brands"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+     </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nk5DHouybZD2MvGqX"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1408</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">601</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">121</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pepsi"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ATXsnhDdq5NyQw4qQ"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://images.data.microwork.io/templates/384551c8730bdea36aa971c1eb816898d10c03a2.png"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TeSRfZBYCdWQbQwvH"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JwfffWsnqX6KBFqom"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"left"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">975</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"top"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1396</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"width"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1262</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"height"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1465</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pepsi"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"brand_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ATXsnhDdq5NyQw4qQ"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"template_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oPkwaTCPLzNd873rx"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"task"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific task.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.microwork.io/v1/task/{TASK_ID}</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -404,8 +657,220 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>url</td>
-<td>The url of image to process</td>
+<td><code class="prettyprint">task_id</code></td>
+<td>The task_id of the task to retrieve</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns a task if a valid identifier was provided, and returns a 404 error otherwise.</p>
+
+<h2 id="cancel-a-task">Cancel a task</h2>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.microwork.io/v1/task/{task_id}/cancel}"</span> <span class="se">\</span>
+  -u <span class="s2">"MICROWORK_API_KEY:"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576ba74eec471ff9b01557cc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T09:09:34.752Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tagging"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"canceled"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"objects_to_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brands"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint cancels a task so that it will not be completed.</p>
+
+<p>You may only cancel pending tasks, and the endpoint will return a 500 error code if you attempt to cancel a completed task.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.microwork.io/v1/task/{TASK_ID}/cancel</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">task_id</code></td>
+<td>The task_id of the task to cancel</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns the canceled task if a valid identifier for a pending task was provided, and returns a 404 error or 500 error otherwise.</p>
+
+<h2 id="list-all-tasks">List All Tasks</h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.microwork.io/v1/tasks"</span> <span class="se">\</span>
+  -u <span class="s2">"MICROWORK_API_KEY:"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"docs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576b998b4628d1bfaed7d3a4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T08:10:51.032Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tagging"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"objects_to_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brands"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"completed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T19:36:23.084Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"task_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"576ba301eed30241b0e9bbf7"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T08:51:13.903Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.example.com/callback"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"annotating"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"image_url"</span><span class="p">:</span><span class="s2">"https://ibb.co/fmMFRQ"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"instruction"</span><span class="p">:</span><span class="s2">"Detect if tag is **good**, **bad**, or **great**."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"annotation_option"</span><span class="p">:</span><span class="s2">"good"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"annotation_option"</span><span class="p">:</span><span class="s2">"bad"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"annotation_option"</span><span class="p">:</span><span class="s2">"great"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"nk5DHouybZD2MvGqX"</span><span class="p">,</span><span class="w">
+            </span><span class="err">left</span><span class="p">:</span><span class="w"> </span><span class="mi">1408</span><span class="p">,</span><span class="w">
+            </span><span class="err">top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="err">width</span><span class="p">:</span><span class="w"> </span><span class="mi">601</span><span class="p">,</span><span class="w">
+            </span><span class="err">height</span><span class="p">:</span><span class="w"> </span><span class="mi">121</span><span class="w">
+          </span><span class="p">},</span><span class="w"> 
+          </span><span class="p">{</span><span class="w">
+            </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"JwfffWsnqX6KBFqom"</span><span class="p">,</span><span class="w">
+            </span><span class="err">left</span><span class="p">:</span><span class="w"> </span><span class="mi">975</span><span class="p">,</span><span class="w">
+            </span><span class="err">top</span><span class="p">:</span><span class="w"> </span><span class="mi">1396</span><span class="p">,</span><span class="w">
+            </span><span class="err">width</span><span class="p">:</span><span class="w"> </span><span class="mi">1262</span><span class="p">,</span><span class="w">
+            </span><span class="err">height</span><span class="p">:</span><span class="w"> </span><span class="mi">1465</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">  
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"completed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-23T09:09:10.108Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="err">...</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This is a paged endpoint retrieves a list of your tasks. The tasks will be returned in descending order based on <code class="prettyprint">created_at</code> time. The pagination is based on the <code class="prettyprint">limit</code> and <code class="prettyprint">offset</code> parameters, which determine the page size and how many results to skip.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.microwork.io/v1/tasks</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">start_time</code></td>
+<td>ISO 8601 Date</td>
+<td>The minimum value of <code class="prettyprint">created_at</code> for tasks to be returned</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code class="prettyprint">end_time</code></td>
+<td>ISO 8601 Date</td>
+<td>The maximum value of <code class="prettyprint">created_at</code> for tasks to be returned</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code class="prettyprint">status</code></td>
+<td>string</td>
+<td>The status of the task - can be: <code class="prettyprint">completed</code>, <code class="prettyprint">pending</code>, or <code class="prettyprint">canceled</code></td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td>string</td>
+<td>The type of the task - can be: <code class="prettyprint">transcription</code>, <code class="prettyprint">categorization</code>, <code class="prettyprint">phonecall</code>, <code class="prettyprint">comparison</code>, <code class="prettyprint">annotation</code>, <code class="prettyprint">datacollection</code>, or any other task type.</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code class="prettyprint">limit</code></td>
+<td>integer</td>
+<td>A number between 1 and 100, the maximum number of results to display per page</td>
+<td>optional, default 100</td>
+</tr>
+<tr>
+<td><code class="prettyprint">offset</code></td>
+<td>integer</td>
+<td>The number of results to skip, for showing the next page</td>
+<td>optional, default 0</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns a list of your tasks.</p>
+
+          <h1 id="errors">Errors</h1>
+
+<p>The Microwork API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; Your request failed</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; Your API key is wrong</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; The object requested is hidden for administrators only</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found &ndash; The specified object could not be found</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many objects! Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
 
@@ -413,7 +878,6 @@
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
-                <a href="#" data-language-name="javascript">JavaScript</a>
           </div>
       </div>
     </div>
