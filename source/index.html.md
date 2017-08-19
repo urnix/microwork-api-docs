@@ -28,7 +28,7 @@ You can view code examples in the dark area to the right.
 ```shell
 # With curl, you can just pass the correct header with each request
 curl "api_endpoint_here" \
-  -H "authorization: Bearer MICROWORK_API_KEY"
+  -u MICROWORK_API_KEY:
 ```
 
 > You must replace MICROWORK_API_KEY with your personal API key.
@@ -48,9 +48,9 @@ You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 
 ```shell
 curl -X POST "https://api.microwork.io/v1/task/images/tagging" \
-     -H "authorization: Bearer MICROWORK_API_KEY" \
+     -u MICROWORK_API_KEY: \
      -d callbackUrl="http://www.example.com/callback" \
-     -d objectsToTag="brands" # Describes what should be tagged. We currently only support brands for the tagging endpoint.
+     -d objectsToTag="brands" \
      -d imageUrl="http://img11.hostingpics.net/pics/487001pepsiminimaillot.png"
 ```
 
@@ -214,7 +214,7 @@ On your tasks, you will be required to supply a `callbackUrl`, a fully qualified
 
 ```shell
 curl "https://api.microwork.io/v1/task/{taskId}" \
-  -H "authorization: Bearer MICROWORK_API_KEY"
+  -u MICROWORK_API_KEY:
 ```
 
 > The above command returns JSON structured like this:
@@ -279,7 +279,7 @@ Returns a task if a valid identifier was provided, and returns a 404 error other
 
 ```shell
 curl -X GET "https://api.microwork.io/v1/task/{taskId}/cancel}" \
-  -H "authorization: Bearer MICROWORK_API_KEY"
+  -u MICROWORK_API_KEY:
 ```
 
 > The above command returns JSON structured like this:
@@ -319,7 +319,7 @@ Returns the canceled task if a valid identifier for a pending task was provided,
 
 ```shell
 curl "https://api.microwork.io/v1/tasks" \
-  -H "authorization: Bearer MICROWORK_API_KEY"
+   -u MICROWORK_API_KEY:
 ```
 
 > The above command returns JSON structured like this:
