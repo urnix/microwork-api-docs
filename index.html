@@ -240,7 +240,7 @@
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With curl, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  -H <span class="s2">"authorization: Bearer MICROWORK_API_KEY"</span>
+  -u MICROWORK_API_KEY:
 </code></pre>
 <blockquote>
 <p>You must replace MICROWORK_API_KEY with your personal API key.</p>
@@ -258,9 +258,9 @@ You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 
 <h1 id="tag-image">Tag image</h1>
 <pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.microwork.io/v1/task/images/tagging"</span> <span class="se">\</span>
-     -H <span class="s2">"authorization: Bearer MICROWORK_API_KEY"</span> <span class="se">\</span>
+     -u MICROWORK_API_KEY: <span class="se">\</span>
      -d <span class="nv">callbackUrl</span><span class="o">=</span><span class="s2">"http://www.example.com/callback"</span> <span class="se">\</span>
-     -d <span class="nv">objectsToTag</span><span class="o">=</span><span class="s2">"brands"</span> <span class="c"># Describes what should be tagged. We currently only support brands for the tagging endpoint.</span>
+     -d <span class="nv">objectsToTag</span><span class="o">=</span><span class="s2">"brands"</span> <span class="se">\</span>
      -d <span class="nv">imageUrl</span><span class="o">=</span><span class="s2">"http://img11.hostingpics.net/pics/487001pepsiminimaillot.png"</span>
 </code></pre>
 <blockquote>
@@ -439,7 +439,7 @@ You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 
 <h2 id="retrieve-a-task">Retrieve a Task</h2>
 <pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.microwork.io/v1/task/{taskId}"</span> <span class="se">\</span>
-  -H <span class="s2">"authorization: Bearer MICROWORK_API_KEY"</span>
+  -u MICROWORK_API_KEY:
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -507,7 +507,7 @@ You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 
 <h2 id="cancel-a-task">Cancel a task</h2>
 <pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://api.microwork.io/v1/task/{taskId}/cancel}"</span> <span class="se">\</span>
-  -H <span class="s2">"authorization: Bearer MICROWORK_API_KEY"</span>
+  -u MICROWORK_API_KEY:
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -550,7 +550,7 @@ You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 
 <h2 id="list-all-tasks">List All Tasks</h2>
 <pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.microwork.io/v1/tasks"</span> <span class="se">\</span>
-  -H <span class="s2">"authorization: Bearer MICROWORK_API_KEY"</span>
+   -u MICROWORK_API_KEY:
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
