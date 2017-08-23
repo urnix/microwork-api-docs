@@ -278,7 +278,7 @@ Returns a task if a valid identifier was provided, and returns a 404 error other
 ## Cancel a task
 
 ```shell
-curl -X GET "https://api.microwork.io/v1/task/{taskId}/cancel}" \
+curl -X GET "https://api.microwork.io/v1/task/{taskId}/cancel" \
   -u MICROWORK_API_KEY:
 ```
 
