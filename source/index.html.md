@@ -43,6 +43,13 @@ Microwork expects for the API key to be included in all API requests to the serv
 You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 </aside>
 
+**Follow these steps to get an API key:**
+
+1. Contact us at <hello@microwork.io> to request a personal API key,
+2. You will get an email with an invite,
+3. Sign up for API key,
+4. Use it in all your requests to Microwork APIs endpoints.
+
 
 # Tag image
 
