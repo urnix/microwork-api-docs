@@ -5,7 +5,7 @@ language_tabs:
   - shell: cURL
 
 toc_footers:
-  - <a href='http://microwork.io'>Documentation for Microwork API</a>
+  - <a href='http://microwork.io'>Go to Microwork site</a>
 
 includes:
   - errors
@@ -51,10 +51,10 @@ You must replace <code>MICROWORK_API_KEY</code> with your personal API key.
 4. Use it in all your requests to Microwork APIs endpoints.
 
 
-# Tag image
+# Create Bounding Boxes
 
 ```shell
-curl -X POST "https://api.microwork.io/v1/task/images/tagging" \
+curl -X POST "https://api.microwork.io/v1/task/images/boundingboxes" \
      -u MICROWORK_API_KEY: \
      -d callbackUrl="http://www.example.com/callback" \
      -d objectsToTag="brands" \
@@ -68,14 +68,14 @@ curl -X POST "https://api.microwork.io/v1/task/images/tagging" \
     "taskId": "BuDEe3LABheGAbuL9",
     "createdAt": "2017-06-20T14:26:40.409Z",
     "callbackUrl": "http://www.example.com/callback",
-    "type": "tagging",
+    "type": "boundingBoxes",
     "objectsToTag": "brands",
     "state": "pending",
     "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png"
 }
 ```
 
-This endpoint creates a tagging task. In this task, one of our workers view the given image and draw bounding boxes around the brand logos, returning the coordinates of these boxes.
+This endpoint creates a task for detect logos on image and create bounding boxes around them. In this task, one of our workers view the given image and draw bounding boxes around the brand logos, returning the coordinates of these boxes.
 
 The required parameters for this task are `callbackUrl`, `imageUrl`, and `objectsToTag`. The `callbackUrl` is the URL which will be POSTed on task completion, and is described in more detail in the [Callbacks section ](#callbacks). The `imageUrl` is a URL to an image you’d like to be tagged.
 
@@ -83,11 +83,11 @@ The required parameters for this task are `callbackUrl`, `imageUrl`, and `object
 
 If successful, Microwork will immediately return the generated task object, of which you should at least store the `taskId`.
 
-<aside class="warning">The tagging might take some time</aside>
+<aside class="warning">The creation of bounding boxes might take some time</aside>
 
 ### HTTP Request
 
-`POST https://api.microwork.io/v1/task/images/tagging`
+`POST https://api.microwork.io/v1/task/images/boundingBoxes`
 
 ### URL Parameters
 
@@ -103,37 +103,37 @@ Parameter         |	Type        | Description
 
 ```json
 {
-    "taskId":"BuDEe3LABheGAbuL9",
-    "createdAt":"2017-06-20T14:26:40.409Z",
-    "callbackUrl":"http://www.example.com/callback",
-    "type":"tagging",
-    "objectsToTag":"brands",
-    "state":"finished",
-    "imageUrl":"http://img11.hostingpics.net/pics/487001pepsiminimaillot.png",
-    "completedAt":"2017-06-20T14:34:41.815Z",
+    "taskId": "BuDEe3LABheGAbuL9",
+    "createdAt": "2017-06-20T14:26:40.409Z",
+    "callbackUrl": "http://www.example.com/callback",
+    "type": "boundingBoxes",
+    "objectsToTag": "brands",
+    "state": "finished",
+    "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png",
+    "completedAt": "2017-06-20T14:34:41.815Z",
     "response":{
         "tags":[
             {
-                "id":"wi2GEMfXxwmoZdYYb",
+                "id": "wi2GEMfXxwmoZdYYb",
                 "left":71,
                 "top":83,
                 "width":116,
                 "height":50,
-                "brand":"Pepsi",
-                "brand_id":"dWYBjnknLhfZbEC6P",
-                "template_url":"https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
-                "template_id":"CXRTbj5CebPeqmd6R"
+                "brand": "Pepsi",
+                "brand_id": "dWYBjnknLhfZbEC6P",
+                "template_url": "https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
+                "template_id": "CXRTbj5CebPeqmd6R"
             },
             {
-                "id":"yM8dkq79AYBSQomGG",
+                "id": "yM8dkq79AYBSQomGG",
                 "left":31,
                 "top":22,
                 "width":64,
                 "height":50,
-                "brand":"Pepsi",
-                "brand_id":"dWYBjnknLhfZbEC6P",
-                "template_url":"https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
-                "template_id":"CXRTbj5CebPeqmd6R"
+                "brand": "Pepsi",
+                "brand_id": "dWYBjnknLhfZbEC6P",
+                "template_url": "https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
+                "template_id": "CXRTbj5CebPeqmd6R"
             }
         ]
     }
@@ -163,37 +163,37 @@ The `tags` field will contain an array of tags. Each `tag` will have the followi
 
 ```json
 {
-    "taskId":"BuDEe3LABheGAbuL9",
-    "createdAt":"2017-06-20T14:26:40.409Z",
-    "callbackUrl":"http://www.example.com/callback",
-    "type":"tagging",
-    "objectsToTag":"brands",
-    "state":"finished",
-    "imageUrl":"http://img11.hostingpics.net/pics/487001pepsiminimaillot.png",
-    "completedAt":"2017-06-20T14:34:41.815Z",
+    "taskId": "BuDEe3LABheGAbuL9",
+    "createdAt": "2017-06-20T14:26:40.409Z",
+    "callbackUrl": "http://www.example.com/callback",
+    "type": "boundingBoxes",
+    "objectsToTag": "brands",
+    "state": "finished",
+    "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png",
+    "completedAt": "2017-06-20T14:34:41.815Z",
     "response":{
         "tags":[
             {
-                "id":"wi2GEMfXxwmoZdYYb",
+                "id": "wi2GEMfXxwmoZdYYb",
                 "left":71,
                 "top":83,
                 "width":116,
                 "height":50,
-                "brand":"Pepsi",
-                "brand_id":"dWYBjnknLhfZbEC6P",
-                "template_url":"https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
-                "template_id":"CXRTbj5CebPeqmd6R"
+                "brand": "Pepsi",
+                "brand_id": "dWYBjnknLhfZbEC6P",
+                "template_url": "https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
+                "template_id": "CXRTbj5CebPeqmd6R"
             },
             {
-                "id":"yM8dkq79AYBSQomGG",
+                "id": "yM8dkq79AYBSQomGG",
                 "left":31,
                 "top":22,
                 "width":64,
                 "height":50,
-                "brand":"Pepsi",
-                "brand_id":"dWYBjnknLhfZbEC6P",
-                "template_url":"https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
-                "template_id":"CXRTbj5CebPeqmd6R"
+                "brand": "Pepsi",
+                "brand_id": "dWYBjnknLhfZbEC6P",
+                "template_url": "https://s3-us-west-2.amazonaws.com/microwork-worker-dev/brands/Pepsi/templates/2ef9f4981d1cdb966e9a157017b37cc6378fd269.png",
+                "template_id": "CXRTbj5CebPeqmd6R"
             }
         ]
     }
@@ -208,12 +208,12 @@ On your tasks, you will be required to supply a `callbackUrl`, a fully qualified
 * `taskId`: The `taskId` is the unique identifier for the task.
 * `createdAt`: Timestamp of task creation.
 * `callbackUrl`: the URL which will be POSTed on task completion.
-* `type`: The type of task (We currently only support `tagging` value)
+* `type`: The type of task (We currently only support `boundingBoxes` value)
 * `objectsToTag`: string describing the different types of objects you’d like tagged (We currently only support `brands` value).
 * `state`: State of the task.
-* `imageUrl`: URL to an image for tagging
+* `imageUrl`: URL to an image for performing
 * `completedAt`: Timestamp of task completion.
-* `response`: The response object of the completed request. For `tagging`, it will contain a `tags` attribute.
+* `response`: The response object of the completed request. For `boundingBoxes`, it will contain a `tags` attribute.
 
 # Task Endpoints
 
@@ -231,7 +231,7 @@ curl "https://api.microwork.io/v1/task/{taskId}" \
     "taskId": "BuDEe3LABheGAbuL9",
     "createdAt": "2017-06-20T14:26:40.409Z",
     "callbackUrl": "http://www.example.com/callback",
-    "type": "tagging",
+    "type": "boundingBoxes",
     "objectsToTag": "brands",
     "state": "finished",
     "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png",
@@ -296,7 +296,7 @@ curl -X GET "https://api.microwork.io/v1/task/{taskId}/cancel" \
     "taskId": "X3mfYmGzMsn4iu5oP",
     "createdAt": "2017-06-20T14:26:33.868Z",
     "callbackUrl": "http://www.example.com/callback",
-    "type": "tagging",
+    "type": "boundingBoxes",
     "objectsToTag": "brands",
     "state": "canceled",
     "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png"
@@ -337,7 +337,7 @@ curl "https://api.microwork.io/v1/tasks" \
         "taskId": "xaWLEnDq3m6azqCKC",
         "createdAt": "2017-06-20T14:26:23.928Z",
         "callbackUrl": "http://www.example.com/callback",
-        "type": "tagging",
+        "type": "boundingBoxes",
         "objectsToTag": "brands",
         "state": "pending",
         "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png"
@@ -346,7 +346,7 @@ curl "https://api.microwork.io/v1/tasks" \
         "taskId": "X3mfYmGzMsn4iu5oP",
         "createdAt": "2017-06-20T14:26:33.868Z",
         "callbackUrl": "http://www.example.com/callback",
-        "type": "tagging",
+        "type": "boundingBoxes",
         "objectsToTag": "brands",
         "state": "canceled",
         "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png"
@@ -355,7 +355,7 @@ curl "https://api.microwork.io/v1/tasks" \
         "taskId": "BuDEe3LABheGAbuL9",
         "createdAt": "2017-06-20T14:26:40.409Z",
         "callbackUrl": "http://www.example.com/callback",
-        "type": "tagging",
+        "type": "boundingBoxes",
         "objectsToTag": "brands",
         "state": "finished",
         "imageUrl": "http://img11.hostingpics.net/pics/487001pepsiminimaillot.png",
